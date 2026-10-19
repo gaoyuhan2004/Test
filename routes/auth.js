@@ -63,6 +63,9 @@ router.post('/login', async (req, res) => {
     return res.status(401).json({ success: false, message: '用户名或密码错误' });
   }
 
+  // 每次登录清空答题记录：所有题目恢复未做状态，可重新作答（收藏保留，题号仍标黄）
+  await db.run('DELETE FROM user_answers WHERE user_id = $1', [user.id]);
+
   const token = jwt.sign(
     { id: user.id, username: user.username, role: user.role },
     JWT_SECRET,
