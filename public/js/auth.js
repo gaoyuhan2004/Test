@@ -98,6 +98,7 @@ authForm.addEventListener('submit', async (e) => {
 function showMessage(msg, type) {
   messageBox.textContent = msg;
   messageBox.className = `auth-message ${type}`;
+  messageBox.style.display = ''; // 清除hideMessage留下的display:none，确保提示可见
 }
 
 function hideMessage() {
