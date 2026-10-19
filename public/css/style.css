@@ -522,6 +522,35 @@ body {
   transition: all 0.2s;
 }
 
+.nav-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.btn-nav {
+  flex: 1;
+  padding: 13px;
+  background: #fff;
+  color: #667eea;
+  border: 2px solid #667eea;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-nav:hover:not(:disabled) {
+  background: #667eea;
+  color: #fff;
+}
+
+.btn-nav:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
 .btn-submit:hover:not(:disabled) {
   box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
 }

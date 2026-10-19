@@ -191,6 +191,11 @@ function renderQuestion(q) {
         <div class="action-buttons">
           <button class="btn-submit answered" id="btn-resubmit" style="display:none;">重新作答</button>
         </div>
+
+        <div class="nav-buttons">
+          <button class="btn-nav" id="btn-prev">← 上一题</button>
+          <button class="btn-nav" id="btn-next">下一题 →</button>
+        </div>
       </div>
     `;
 
@@ -207,6 +212,7 @@ function renderQuestion(q) {
     });
 
     bindFavButton(q.id);
+    bindNavButtons();
 
   } else {
     // 未答题状态
@@ -234,6 +240,11 @@ function renderQuestion(q) {
         <div class="action-buttons">
           <button class="btn-submit" id="btn-submit" disabled>提交答案</button>
         </div>
+
+        <div class="nav-buttons">
+          <button class="btn-nav" id="btn-prev">← 上一题</button>
+          <button class="btn-nav" id="btn-next">下一题 →</button>
+        </div>
       </div>
     `;
 
@@ -251,6 +262,7 @@ function renderQuestion(q) {
 
     submitBtn.addEventListener('click', () => submitAnswer(q.id, selectedOption));
     bindFavButton(q.id);
+    bindNavButtons();
   }
 }
 
@@ -300,6 +312,22 @@ async function submitAnswer(questionId, selected) {
     submitBtn.disabled = false;
     submitBtn.textContent = '提交答案';
   }
+}
+
+function bindNavButtons() {
+  const prevBtn = document.getElementById('btn-prev');
+  const nextBtn = document.getElementById('btn-next');
+
+  // 第一题禁用上一题，最后一题禁用下一题
+  prevBtn.disabled = currentIndex <= 0;
+  nextBtn.disabled = currentIndex >= questions.length - 1;
+
+  prevBtn.addEventListener('click', () => {
+    if (currentIndex > 0) selectQuestion(currentIndex - 1);
+  });
+  nextBtn.addEventListener('click', () => {
+    if (currentIndex < questions.length - 1) selectQuestion(currentIndex + 1);
+  });
 }
 
 function bindFavButton(questionId) {
