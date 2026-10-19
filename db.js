@@ -88,6 +88,25 @@ if (DATABASE_URL) {
       console.log('✅ 已创建默认管理员: admin / admin123');
     }
 
+    // 自动导入题库（如果题目表为空）
+    const qCount = await db.get('SELECT COUNT(*) AS count FROM questions');
+    if (!qCount || Number(qCount.count) === 0) {
+      const jsonPath = path.join(__dirname, 'questions-backup.json');
+      if (fs.existsSync(jsonPath)) {
+        const questions = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
+        for (const q of questions) {
+          await db.run(
+            `INSERT INTO questions (type, content, option_a, option_b, option_c, option_d, answer, explanation)
+             VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
+            [q.type, q.content, q.option_a, q.option_b, q.option_c, q.option_d, q.answer, q.explanation]
+          );
+        }
+        console.log(`✅ 已自动导入 ${questions.length} 道题目`);
+      } else {
+        console.log('⚠️ 未找到 questions-backup.json，跳过题库导入');
+      }
+    }
+
     console.log('✅ PostgreSQL数据库初始化完成');
   }
 
