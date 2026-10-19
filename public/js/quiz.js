@@ -15,6 +15,7 @@ document.getElementById('user-name').textContent = `👤 ${user.username}`;
 document.getElementById('logout-btn').addEventListener('click', () => {
   localStorage.removeItem('token');
   localStorage.removeItem('user');
+  localStorage.removeItem('lastQuestionIndex'); // 清除做题位置，下次登录从第一题开始
   window.location.href = '/index.html';
 });
 
@@ -71,9 +72,11 @@ async function init() {
     renderGrid();
     updateProgressSummary();
 
-    // 默认选中第一题
+    // 默认选中上次的题目（刷新后继续），重新登录会清除记录、从第一题开始
     if (questions.length > 0) {
-      selectQuestion(0);
+      const saved = parseInt(localStorage.getItem('lastQuestionIndex'), 10);
+      const startIdx = (!isNaN(saved) && saved >= 0 && saved < questions.length) ? saved : 0;
+      selectQuestion(startIdx);
     }
   } catch (err) {
     console.error(err);
@@ -109,6 +112,7 @@ function updateProgressSummary() {
 
 function selectQuestion(index) {
   currentIndex = index;
+  localStorage.setItem('lastQuestionIndex', index); // 记住位置，刷新后恢复
   const q = questions[index];
 
   // 更新网格选中状态

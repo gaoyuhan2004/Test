@@ -72,6 +72,7 @@ authForm.addEventListener('submit', async (e) => {
       // 保存token和用户信息
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));
+      localStorage.removeItem('lastQuestionIndex'); // 重新登录从第一题开始
 
       showMessage(currentMode === 'login' ? '登录成功，正在跳转...' : '注册成功，正在登录...', 'success');
       
