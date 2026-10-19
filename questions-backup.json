@@ -511,8 +511,8 @@
     "option_b": "",
     "option_c": "",
     "option_d": "",
-    "answer": "TRUE",
-    "explanation": "独创性是独立创作，两人分别独立完成的都有独创性。",
+    "answer": "FALSE",
+    "explanation": "独创性强调独立创作，甲乙分别独立完成，即使作品内容一模一样，各自作品均具有独创性，故本题说法错误。",
     "created_at": "2026-10-19 07:47:07"
   },
   {

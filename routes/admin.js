@@ -82,6 +82,23 @@ router.post('/clear', authenticate, requireAdmin, async (req, res) => {
   res.json({ success: true, message: `已删除 ${result.changes} 道题目及相关数据` });
 });
 
+// 修改单题
+router.put('/question/:id', authenticate, requireAdmin, async (req, res) => {
+  const { type, content, option_a = '', option_b = '', option_c = '', option_d = '', answer, explanation = '' } = req.body;
+  if (!content || !answer) {
+    return res.status(400).json({ success: false, message: '题目内容和答案不能为空' });
+  }
+  const result = await db.run(`
+    UPDATE questions
+    SET type = $1, content = $2, option_a = $3, option_b = $4, option_c = $5, option_d = $6, answer = $7, explanation = $8
+    WHERE id = $9
+  `, [type || 'single', content, option_a, option_b, option_c, option_d, answer, explanation, req.params.id]);
+  if (result.changes === 0) {
+    return res.status(404).json({ success: false, message: '题目不存在' });
+  }
+  res.json({ success: true, message: '修改成功' });
+});
+
 // 删除单题
 router.delete('/question/:id', authenticate, requireAdmin, async (req, res) => {
   const result = await db.run('DELETE FROM questions WHERE id = $1', [req.params.id]);
