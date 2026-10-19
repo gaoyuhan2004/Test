@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>刷题系统 - 管理员</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="admin-page">
+    <h2>🔧 管理员后台</h2>
+
+    <!-- 统计卡片 -->
+    <div class="admin-card">
+      <h3>📊 数据统计</h3>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="number" id="stat-questions">--</div>
+          <div class="label">题目总数</div>
+        </div>
+        <div class="stat-item">
+          <div class="number" id="stat-users">--</div>
+          <div class="label">学生人数</div>
+        </div>
+        <div class="stat-item">
+          <div class="number" id="stat-answers">--</div>
+          <div class="label">答题总次数</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Excel上传 -->
+    <div class="admin-card">
+      <h3>📥 导入题库</h3>
+      <div class="upload-area" id="upload-area">
+        <div class="icon">📄</div>
+        <p><strong>点击此处</strong>或拖拽Excel文件到这里上传</p>
+        <small>支持 .xlsx / .xls 格式</small>
+        <input type="file" id="file-input" accept=".xlsx,.xls" style="display:none;" />
+      </div>
+      <div style="margin-top:12px;font-size:13px;color:#888;">
+        <strong>Excel表头格式：</strong>type | content | option_a | option_b | option_c | option_d | answer | explanation<br/>
+        <strong>type值：</strong>single(单选) / judge(判断)<br/>
+        <strong>answer值：</strong>单选填A/B/C/D，判断填TRUE/FALSE
+      </div>
+    </div>
+
+    <!-- JSON导入 -->
+    <div class="admin-card">
+      <h3>📝 JSON批量导入</h3>
+      <p style="font-size:13px;color:#888;margin-bottom:10px;">粘贴JSON格式题目数组直接导入：</p>
+      <textarea class="textarea-json" id="json-input" placeholder='[{"type":"single","content":"题目","option_a":"A","option_b":"B","answer":"A"}]'></textarea>
+      <button class="btn-primary" style="margin-top:12px;" id="btn-import-json">导入JSON</button>
+    </div>
+
+    <!-- 危险操作 -->
+    <div class="admin-card">
+      <h3>⚠️ 危险操作</h3>
+      <button class="btn-danger" id="btn-clear" style="width:auto;">清空所有题目</button>
+      <p style="font-size:12px;color:#999;margin-top:8px;">此操作会删除所有题目和学生答题记录，不可恢复！</p>
+    </div>
+
+    <!-- 消息提示 -->
+    <div id="message" style="margin-top:16px;"></div>
+
+    <div style="text-align:center;margin-top:20px;">
+      <a href="/index.html" style="color:#888;text-decoration:none;font-size:13px;">← 返回登录页</a>
+    </div>
+  </div>
+
+  <script src="/js/admin.js"></script>
+</body>
+</html>

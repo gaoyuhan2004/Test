@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>刷题系统 - 登录</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body class="auth-body">
+  <div class="auth-container">
+    <div class="auth-card">
+      <div class="auth-header">
+        <h1>📚 刷题系统</h1>
+        <p id="auth-subtitle">欢迎回来，请登录</p>
+      </div>
+
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-mode="login">登录</button>
+        <button class="auth-tab" data-mode="register">注册</button>
+      </div>
+
+      <form id="auth-form" class="auth-form">
+        <div class="form-group">
+          <label>用户名</label>
+          <input type="text" id="username" placeholder="请输入用户名" autocomplete="username" required />
+        </div>
+        <div class="form-group">
+          <label>密码</label>
+          <input type="password" id="password" placeholder="请输入密码" autocomplete="current-password" required />
+        </div>
+        <div id="confirm-password-group" class="form-group" style="display:none;">
+          <label>确认密码</label>
+          <input type="password" id="confirm-password" placeholder="请再次输入密码" autocomplete="new-password" />
+        </div>
+        <button type="submit" class="btn-primary" id="submit-btn">登录</button>
+      </form>
+
+      <div id="auth-message" class="auth-message"></div>
+
+      <div class="auth-footer">
+        <p>学生账号在此登录刷题</p>
+        <a href="/admin.html" class="admin-link">管理员入口 →</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/auth.js"></script>
+</body>
+</html>

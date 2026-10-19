@@ -1,0 +1,8 @@
+{
+  "buildCommand": "npm install",
+  "startCommand": "node server.js",
+  "envVars": {
+    "NODE_ENV": "production",
+    "JWT_SECRET": "render-production-secret-change-me"
+  }
+}

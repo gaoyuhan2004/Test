@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>刷题系统 - 刷题</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body class="quiz-page">
+  <header class="quiz-header">
+    <button class="mobile-menu-btn" id="menu-btn">☰</button>
+    <h1>📚 刷题系统</h1>
+    <div class="user-info">
+      <span id="user-name">加载中...</span>
+      <button class="btn-logout" id="logout-btn">退出</button>
+    </div>
+  </header>
+
+  <div class="quiz-layout">
+    <!-- 遮罩层 -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- 左侧题号导航 -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-title">
+        <span>📋 题目导航</span>
+      </div>
+      <div class="stats-row" style="margin-bottom: 12px;">
+        <span><span class="legend-dot default"></span>未做</span>
+        <span><span class="legend-dot done"></span>已做</span>
+        <span><span class="legend-dot favorited"></span>收藏</span>
+      </div>
+      <div id="progress-summary" style="font-size:12px;color:#888;margin-bottom:12px;padding:8px;background:#f8f9fa;border-radius:6px;"></div>
+      <div class="question-grid" id="question-grid">
+        <!-- 题号按钮动态生成 -->
+      </div>
+    </aside>
+
+    <!-- 右侧题目区 -->
+    <main class="main-content">
+      <div id="empty-state" class="empty-state">
+        <div class="icon">📝</div>
+        <h2>暂无题目</h2>
+        <p>请等待管理员上传题库</p>
+      </div>
+      <div id="question-container" style="display:none;">
+        <!-- 题目卡片动态渲染 -->
+      </div>
+    </main>
+  </div>
+
+  <script src="/js/quiz.js"></script>
+</body>
+</html>
