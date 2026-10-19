@@ -82,17 +82,24 @@ router.post('/clear', authenticate, requireAdmin, async (req, res) => {
   res.json({ success: true, message: `已删除 ${result.changes} 道题目及相关数据` });
 });
 
-// 修改单题
+// 修改单题（未传的字段保留原值，不会被清空）
 router.put('/question/:id', authenticate, requireAdmin, async (req, res) => {
-  const { type, content, option_a = '', option_b = '', option_c = '', option_d = '', answer, explanation = '' } = req.body;
+  const { type, content, option_a, option_b, option_c, option_d, answer, explanation } = req.body;
   if (!content || !answer) {
     return res.status(400).json({ success: false, message: '题目内容和答案不能为空' });
   }
   const result = await db.run(`
     UPDATE questions
-    SET type = $1, content = $2, option_a = $3, option_b = $4, option_c = $5, option_d = $6, answer = $7, explanation = $8
+    SET type = COALESCE($1, type),
+        content = $2,
+        option_a = COALESCE($3, option_a),
+        option_b = COALESCE($4, option_b),
+        option_c = COALESCE($5, option_c),
+        option_d = COALESCE($6, option_d),
+        answer = $7,
+        explanation = COALESCE($8, explanation)
     WHERE id = $9
-  `, [type || 'single', content, option_a, option_b, option_c, option_d, answer, explanation, req.params.id]);
+  `, [type ?? null, content, option_a ?? null, option_b ?? null, option_c ?? null, option_d ?? null, answer, explanation ?? null, req.params.id]);
   if (result.changes === 0) {
     return res.status(404).json({ success: false, message: '题目不存在' });
   }
